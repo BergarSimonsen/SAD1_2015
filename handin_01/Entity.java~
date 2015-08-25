@@ -1,0 +1,16 @@
+public class Entity {
+    private int index;
+    private String name;
+    private int[] prefs;
+
+    public Entity(int index, String name, int[] prefs) {
+	this.index = index;
+	this.name = name;
+	this.prefs = prefs;
+    }
+
+    public Entity(int index, String name) {
+	this.index = index;
+	this.name = name;
+    }
+}

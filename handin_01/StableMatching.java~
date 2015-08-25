@@ -1,0 +1,85 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class StableMatching {
+    private int n;
+    private String[] a;
+    private String[] b;
+
+    public static void main(String[] args) {
+	StableMatching sm = new StableMatching();
+	
+	Scanner in = new Scanner(System.in);
+
+	//String personPattern = "\\d \\s [a-zA-Z]*";
+	String p1 = "\\d .*";
+	String p2 = "\\d(:) .*";
+	Pattern r = Pattern.compile(p1);
+	Pattern r2 = Pattern.compile(p2);
+
+	int mIndex = 0;
+	int fIndex = 0;
+
+	
+	while(true) {
+	    if(!in.hasNextLine()) break;
+	    String l = in.nextLine();
+	    if(l == null) continue;
+	    Matcher m = r.matcher(l);
+	    Matcher m1 = r2.matcher(l);
+	    System.out.println(l);
+	    if(l.startsWith("#")) continue;
+	    else if(l.startsWith("n")) {
+		System.out.println("------------- n match");
+		sm.setN(sm.parseN(l));
+		sm.setA(new String[sm.getN()]);
+		sm.setB(new String[sm.getN()]);
+	    } else if(m.matches()) {
+		System.out.println("------------- M!");
+		String[] s = l.split(" ");
+		int num = Integer.parseInt(s[0]);
+		if(num % 2 == 0) {
+		    sm.getB()[fIndex] = s[1];
+		    fIndex++;
+		} else {
+		    sm.getA()[mIndex] = s[1];
+		    mIndex++;
+		}
+
+	    } else if(m1.matches()) {
+		//		System.out.println("------------- M1");		
+	    }
+	} 
+
+	sm.debug(); 
+    }
+
+    
+    public int parseN(String l) {
+	return Integer.parseInt(l.substring(2));
+    }
+
+    private void debug() {
+	System.out.println("----------------------------------");
+	System.out.println("n: " + n);
+	System.out.println("a.length: " + a.length);
+	System.out.println("b.length: " + b.length);
+	System.out.println("a:");
+	for(int i = 0; i < a.length; i++)
+	    System.out.println(String.format("%d %s", i, a[i]));
+	System.out.println("b:");
+	for(int i = 0; i < b.length; i++)
+	    System.out.println(String.format("%d %s", i, b[i]));
+	System.out.println("----------------------------------");
+    }
+
+    public void setN(int n) { this.n = n; }
+    public int getN() { return this.n; }
+
+    public String[] getA() { return this.a; }
+    public void setA(String[] arr) { this.a = arr; }
+    
+    public String[] getB() { return this.b; }
+    public void setB(String[] arr) { this.b = arr; }    
+}
