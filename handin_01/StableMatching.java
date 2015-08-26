@@ -6,11 +6,12 @@ public class StableMatching {
 
     private static StableMatching sm;
 
-    private static boolean doDebug = true;
+    private static boolean doDebug = false;
     
     private int n;
     private Entity[] a;
     private Entity[] b;
+    private Pair[] match;
 
     static int mIndex = 0;
     static int fIndex = 0;        
@@ -37,38 +38,50 @@ public class StableMatching {
 		sm.setN(sm.parseN(l));
 		sm.setA(new Entity[sm.getN()]);
 		sm.setB(new Entity[sm.getN()]);
+		sm.setMatch(new Pair[sm.getN()]);
 	    } else if(m.matches()) {
 		parseEntities(l);
 	    } else if(m1.matches()) {
 		parsePreferenceLists(l);
 	    }
 	}
+
+
+	// Do simple matching
+	for(int i = 0; i < sm.getN(); i++) {
+	    sm.getMatch()[i] = new Pair(sm.getA()[i], sm.getB()[i]);
+	}
+
+	for(int j = 0; j < sm.getN(); j++) {
+	    Entity first = sm.getMatch()[j].getFirst();
+	    Entity second = sm.getMatch()[j].getSecond();
+	    System.out.println(first.getName() + " - " + second.getName());
+	}
 	
 	sm.debug(); 
     }
 
     public static void parsePreferenceLists(String l) {    
-	    String[] s = l.split(" ");
-	    int index = Integer.parseInt(s[0].substring(0, s[0].length()-1));
-	    int[] tmp = new int[sm.getN()];
-	    for(int i = 1; i < s.length; i++)
-		tmp[i - 1] = Integer.parseInt(s[i]);
-
-	    if(index % 2 == 0) {
-		for(int i = 0; i < sm.getN(); i++) {
-		    if(sm.getB()[i].getIndex() == index) {
-			sm.getB()[i].setPrefs(tmp);
-			break;
-		    }
-		}
-	    } else {
-		for(int i = 0; i < sm.getN(); i++) {
-		    if(sm.getA()[i].getIndex() == index) {
-			sm.getA()[i].setPrefs(tmp);
-			break;
-		    }
+	String[] s = l.split(" ");
+	int index = Integer.parseInt(s[0].substring(0, s[0].length()-1));
+	int[] tmp = new int[sm.getN()];
+	
+	for(int i = 1; i < s.length; i++) tmp[i - 1] = Integer.parseInt(s[i]);
+	
+	if(index % 2 == 0) {
+	    for(int i = 0; i < sm.getN(); i++) {
+		if(sm.getB()[i].getIndex() == index) {
+		    sm.getB()[i].setPrefs(tmp);
+		    break;
 		}
 	    }
+	} else {
+	    for(int i = 0; i < sm.getN(); i++) 
+		if(sm.getA()[i].getIndex() == index) {
+		    sm.getA()[i].setPrefs(tmp);
+		    break;
+		}
+	}
     }
 
     public static void parseEntities(String l) {    
@@ -99,6 +112,9 @@ public class StableMatching {
     
     public Entity[] getB() { return this.b; }
     public void setB(Entity[] arr) { this.b = arr; }
+
+    public Pair[] getMatch() { return this.match; }
+    public void setMatch(Pair[] match) { this.match = match; }
 
     public void debug() {
 	if(doDebug) {
