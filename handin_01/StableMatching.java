@@ -1,12 +1,13 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class StableMatching {
 
     private static StableMatching sm;
 
-    private static boolean doDebug = false;
+    private static boolean doDebug = true;
     
     private int n;
     private Entity[] a;
@@ -14,7 +15,12 @@ public class StableMatching {
     private Pair[] match;
 
     static int mIndex = 0;
-    static int fIndex = 0;        
+    static int fIndex = 0;
+
+    static ArrayList<Entity> freeMen = new ArrayList<Entity>();
+    static ArrayList<Pair> matches = new ArrayList<Pair>();
+    static Entity[] wife;
+    static Entity[] husband;
 
     public static void parseInput() {    
 	Scanner in = new Scanner(System.in);
@@ -46,19 +52,78 @@ public class StableMatching {
 	    }
 	}
 
+	for(Entity e : sm.getA())
+	    freeMen.add(e);
 
-	// Do simple matching
-	for(int i = 0; i < sm.getN(); i++) {
-	    sm.getMatch()[i] = new Pair(sm.getA()[i], sm.getB()[i]);
-	}
+	int step = 0;
 
-	for(int j = 0; j < sm.getN(); j++) {
-	    Entity first = sm.getMatch()[j].getFirst();
-	    Entity second = sm.getMatch()[j].getSecond();
-	    System.out.println(first.getName() + " - " + second.getName());
+	while(freeMen.size() > 0) {
+	    Entity m = freeMen.get(freeMen.size() - 1);
+	    int curPref = m.getCurrentPref();
+
+	    Entity w = null;
+
+	    System.out.println("------------ " + curPref);
+	    // Check if woman is matched
+	    for(Pair p : matches) {
+		if(p.getSecond().getIndex() == m.getPrefs()[curPref]) {
+		    // is matched!
+		    w = p.getSecond();
+
+		    // check if m is better match
+		    int mIndex = m.getIndex();
+		    int curMatchIndex = -1;
+		    int mMatchIndex = -1;
+
+		    for(int j = 0; j < w.getPrefs().length; j++) {
+			if(w.getPrefs()[j] == mIndex)
+			    mMatchIndex = j;
+			if(w.getPrefs()[j] == p.getFirst().getIndex())
+			    curMatchIndex = j;
+
+			if(mMatchIndex > -1 && curMatchIndex > -1) break;
+		    }
+
+		    System.out.println("curMatch: " + curMatchIndex + " mMatch: " + mMatchIndex);
+		    
+		    if(curMatchIndex < mMatchIndex) {
+			System.out.println("existing match!");
+			break;
+		    } else {
+			System.out.println("replacing match, " + freeMen.size());
+			
+			Entity tmp = p.getFirst();
+			p.setFirst(m);
+			freeMen.remove(freeMen.size() - 1);
+			freeMen.add(tmp);
+		    }
+		}
+	    }
+
+	    // w is not matched
+	    if(w == null) {
+		System.out.println("w is not matched!");
+		for(int i = 0; i < sm.getB().length; i++) {
+		    if(sm.getB()[i].getIndex() == m.getPrefs()[curPref]) {
+			w = sm.getB()[i];
+			System.out.println("Found!");
+			break;
+		    }
+		}
+
+		if(w != null) {
+		    matches.add(new Pair(m, w));
+		    freeMen.remove(freeMen.size() - 1);
+		}
+	    } 
+
+	    System.out.println(String.format("Step: %d, matches.size: %d, freeMen.size() %d", step, matches.size(), freeMen.size()));
+	    for(Pair p : matches) {
+		System.out.println(p.getFirst().getName() + " -- " + p.getSecond().getName());
+	    }
+	    step++;
+
 	}
-	
-	sm.debug(); 
     }
 
     public static void parsePreferenceLists(String l) {    
@@ -89,10 +154,10 @@ public class StableMatching {
 
 	int num = Integer.parseInt(s[0]);
 	if(num % 2 == 0) {
-	    sm.getB()[fIndex] = new Entity(num, s[1]);
+	    sm.getB()[fIndex] = new Entity(num, s[1], sm.getN());
 	    fIndex++;
 	} else {
-	    sm.getA()[mIndex] = new Entity(num, s[1]);		    
+	    sm.getA()[mIndex] = new Entity(num, s[1], sm.getN());		    
 	    mIndex++;
 	}
     }

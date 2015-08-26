@@ -2,16 +2,23 @@ public class Entity {
     private int index;
     private String name;
     private int[] prefs;
+    private int[] inversePrefs;
+    private int currentPref;
+    private int n;
 
-    public Entity(int index, String name, int[] prefs) {
+    public Entity(int index, String name, int[] prefs, int n) {
 	this.index = index;
 	this.name = name;
 	this.prefs = prefs;
+	this.currentPref = 0;
+	this.n = n;
     }
 
-    public Entity(int index, String name) {
+    public Entity(int index, String name, int n) {
 	this.index = index;
 	this.name = name;
+	this.currentPref = 0;
+	this.n = n;
     }
 
     public int getIndex() { return index; }
@@ -21,7 +28,21 @@ public class Entity {
     public void setName(String name) { this.name = name; }
 
     public int[] getPrefs() { return prefs; }
-    public void setPrefs(int[] prefs) { this.prefs = prefs; }
+    public void setPrefs(int[] prefs) {
+	this.prefs = prefs;
+	this.inversePrefs = new int[prefs.length];
+	for(int i = 1; i <= prefs.length; i++)
+	    inversePrefs[i-1] = i;
+    }
+
+    public int[] getInversePrefs() { return inversePrefs; }
+
+    public int getCurrentPref() {
+	int x = currentPref;
+	if(currentPref < n-1)
+	    currentPref++;
+	return x;
+    }
 
     public String toString() {
 	String p = "";
