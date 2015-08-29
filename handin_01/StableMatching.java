@@ -7,7 +7,7 @@ public class StableMatching {
 
     private static StableMatching sm;
 
-    private static boolean doDebug = true;
+    private static boolean doDebug = false;
     
     private int n;
     private Entity[] a;
@@ -63,7 +63,7 @@ public class StableMatching {
 
 	    Entity w = null;
 
-	    System.out.println("------------ " + curPref);
+	    //	    System.out.println("------------ " + curPref);
 	    // Check if woman is matched
 	    for(Pair p : matches) {
 		if(p.getSecond().getIndex() == m.getPrefs()[curPref]) {
@@ -84,13 +84,13 @@ public class StableMatching {
 			if(mMatchIndex > -1 && curMatchIndex > -1) break;
 		    }
 
-		    System.out.println("curMatch: " + curMatchIndex + " mMatch: " + mMatchIndex);
+		    //		    System.out.println("curMatch: " + curMatchIndex + " mMatch: " + mMatchIndex);
 		    
 		    if(curMatchIndex < mMatchIndex) {
-			System.out.println("existing match!");
+			//			System.out.println("existing match!");
 			break;
 		    } else {
-			System.out.println("replacing match, " + freeMen.size());
+			//			System.out.println("replacing match, " + freeMen.size());
 			
 			Entity tmp = p.getFirst();
 			p.setFirst(m);
@@ -102,11 +102,11 @@ public class StableMatching {
 
 	    // w is not matched
 	    if(w == null) {
-		System.out.println("w is not matched!");
+		//		System.out.println("w is not matched!");
 		for(int i = 0; i < sm.getB().length; i++) {
 		    if(sm.getB()[i].getIndex() == m.getPrefs()[curPref]) {
 			w = sm.getB()[i];
-			System.out.println("Found!");
+			//			System.out.println("Found!");
 			break;
 		    }
 		}
@@ -117,13 +117,15 @@ public class StableMatching {
 		}
 	    } 
 
-	    System.out.println(String.format("Step: %d, matches.size: %d, freeMen.size() %d", step, matches.size(), freeMen.size()));
-	    for(Pair p : matches) {
-		System.out.println(p.getFirst().getName() + " -- " + p.getSecond().getName());
-	    }
+	    //	    System.out.println(String.format("Step: %d, matches.size: %d, freeMen.size() %d", step, matches.size(), freeMen.size()));
+	    //	    for(Pair p : matches) {
+	    //		System.out.println(p.getFirst().getName() + " -- " + p.getSecond().getName());
+	    //	    }
 	    step++;
 
 	}
+	for(Pair p : matches)
+	    System.out.println(p.getFirst().getName() + " -- " + p.getSecond().getName());
     }
 
     public static void parsePreferenceLists(String l) {    
@@ -165,6 +167,7 @@ public class StableMatching {
     public static void main(String[] args) {
 	sm = new StableMatching();
 	parseInput();
+	
     }
     
     public int parseN(String l) { return Integer.parseInt(l.substring(2)); }
