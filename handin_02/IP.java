@@ -35,8 +35,9 @@ public class IP {
 		break;
 	}
 
-	for(Job j : jobs)
-	    System.out.println(j.toString());
+	if(debug)
+	    for(Job j : jobs)
+		log(j.toString());
     }
 
     public static void log(String m) {
