@@ -4,14 +4,26 @@ public class IP {
 
     private static boolean debug = true;
 
-    private static ArrayList<Job> rooms;
+    private static ArrayList<ArrayList<Job>> rooms;
     private static int n;
     private static Job[] jobs;
+    private static PriorityQueue<Job> priority;
+    private static int priorityCapacity = 10;
     
-
     public static void main(String[] args) {
-	rooms = new ArrayList<Job>();
+	rooms = new ArrayList<ArrayList<Job>>();
 	parseInput();
+
+	priority = new PriorityQueue<Job>(priorityCapacity, (a, b) -> a.getEndTime() - b.getEndTime());
+	System.out.println(" ------------------- ");
+	for(Job j : priority)
+	    System.out.println(j.toString());
+	System.out.println(" ------------------- ");	
+
+	Arrays.sort(jobs, (a, b) -> a.getStartTime() - b.getStartTime());
+	
+	for(Job j : jobs)
+	    System.out.println(j.toString());
     }
 
     public static void parseInput() {
@@ -38,6 +50,11 @@ public class IP {
 	if(debug)
 	    for(Job j : jobs)
 		log(j.toString());
+    }
+
+    public static void addNewRoom() {
+	if(rooms != null)
+	    rooms.add(new ArrayList<Job>());
     }
 
     public static void log(String m) {
