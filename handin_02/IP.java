@@ -32,7 +32,7 @@ public class IP {
                 }
             }
         }
-	//System.out.println(cur + "\n");
+	System.out.println(cur + "\n");
 
 	for(Job j : jobs)
             System.out.println(j.toString());
