@@ -4,15 +4,25 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class CP {
+    /*
+      Regex explanation:
+      
+      pairNumber matches numbers where the first element is a number: 270 180 125
+      pairName matches numbers where the first element is a name: romeo 0 0
+      pairScientific matches numbers in scientific notation: 12 1.09100e+03 9.58300e+02
+    */
+    
     private static final String pairNumber = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+(\\s)*-?[0-9]+";
     private static final String pairName = "[a-zA-Z]+ -?[0-9]+ -?[0-9]+";
     private static final String dimension = "DIMENSION: [0-9]+";
+    private static final String pairScientific = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+-?[0-9]*[.][0-9]*[e][+][0-9]+(\\s)*-?[0-9]*[.][0-9]*[e][+][0-9]+";
 
     private static final Pattern patternNumber = Pattern.compile(pairNumber);
     private static final Pattern patternName = Pattern.compile(pairName);
     private static final Pattern patternDimension = Pattern.compile(dimension);
+    private static final Pattern patternScientific = Pattern.compile(pairScientific);
+    
     private static int n = 0;
     private static Point P[];
     private static int curIndex = 0;
@@ -20,6 +30,8 @@ public class CP {
     
     public static void main(String[] args) {
         parseInput();
+
+	if(P == null) die();
 
 	printPointArray(P);
         
@@ -35,13 +47,7 @@ public class CP {
     
     
     private static Point closestPairRec(Point[] px, Point[] py) {
-        
         return null;
-    }
-
-    private static void printPointArray(Point[] arr) {
-	for(int i = 0; i < arr.length; i++) 
-	    System.out.println(String.format("arr[%d] == %s", i, arr[i].toString()));
     }
     
     public static void parseInput() {
@@ -54,13 +60,19 @@ public class CP {
 	    
 	    Matcher matcherNumber = patternNumber.matcher(l);
 	    Matcher matcherName = patternName.matcher(l);
+	    Matcher matcherScientific = patternScientific.matcher(l);
 	    Matcher matcherDimension = patternDimension.matcher(l);
 
 	    if(matcherDimension.matches()) {
 		parseDimension(l);
-	    } else if(matcherNumber.matches() || matcherName.matches()) {
-		parsePoint(l);
-	    } 
+	    } else if(matcherNumber.matches() || matcherName.matches() || matcherScientific.matches()) {
+		if(P != null)
+		    parsePoint(l);
+		else
+		    die();
+	    } else {
+		System.out.println("no match");
+	    }
 	}
     }
 
@@ -70,29 +82,8 @@ public class CP {
 	P = new Point[n];
     }
     
-    /*    public static void parseNamePoint(String l) {
-	
-	System.out.println("----------------------------------------");
-	String[] tmp = l.split(" ");
-	System.out.println("Line: " + l);
-	for(int i = 0; i < tmp.length; i++)
-	    System.out.println(String.format("tmp[%d] = %s", i, tmp[i]));
-	System.out.println("----------------------------------------");	
-	n++; 
-    }*/
-
-    /*    public static void parseNumberPoint(String l) {
-	String[] tmp = l.split(" ");
-	if(tmp.length == 3) {
-	    Point p = new Point(tmp[0], Double.parseDouble(tmp[1]), Double.parseDouble(tmp[2]));
-	    P[curIndex++] = p;
-	}
-    } */
-
     public static void parsePoint(String l) {
 	String[] tmp = l.split(" ");
-	//	System.out.println("tmp.length == " + tmp.length);
-
 	ArrayList<String> list = new ArrayList<String>();
 
 	for(String s : tmp) {
@@ -100,17 +91,22 @@ public class CP {
 		list.add(s);
 	}
 
-	Point p = new Point(Double.parseDouble(list.get(1)), Double.parseDouble(list.get(2)), list.get(0));
+	//	Point p = new Point(Double.parseDouble(list.get(1)), Double.parseDouble(list.get(2)), list.get(0));
+	Point p = new Point(Double.valueOf(list.get(1)), Double.valueOf(list.get(2)), list.get(0));
+	System.out.println(p.toString());
 	P[curIndex++] = p;
-	
-	/*	if(tmp.length == 3) {
-	    Point p = new Point(Double.parseDouble(tmp[1]), Double.parseDouble(tmp[2]), tmp[0]);
-	    P[curIndex++] = p;
-	} else {
-	    for(int i = 0; i < tmp.length; i++)
-		System.out.println(String.format("tmp[%d] == %s", i, tmp[i]));
-		} */
-    } 
+    }
+
+    private static void printPointArray(Point[] arr) {
+	for(int i = 0; i < arr.length; i++) 
+	    System.out.println(String.format("arr[%d] == %s", i, arr[i].toString()));
+    }
+    
+    private static void die() {
+	// Fatal error. Kill program.
+	System.out.println("Error parsing input. Exiting.");
+	System.exit(-1);
+    }    
 }
 
 class Point {    
