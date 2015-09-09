@@ -1,37 +1,37 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CP {
-
-    private static String pairNumber = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+(\\s)*-?[0-9]+";
-    private static String pairName = "[a-zA-Z]+ -?[0-9]+ -?[0-9]+";
+    private static final String pairNumber = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+(\\s)*-?[0-9]+";
+    private static final String pairName = "[a-zA-Z]+ -?[0-9]+ -?[0-9]+";
     
-    private static Pattern patternNumber = Pattern.compile(pairNumber);
-    private static Pattern patternName = Pattern.compile(pairName);
-
+    private static final Pattern patternNumber = Pattern.compile(pairNumber);
+    private static final Pattern patternName = Pattern.compile(pairName);
     private static int n = 0;
-    private static Point P[] = new Point[10];    
+    private static Point P[] = new Point[n];
+    
     
     public static void main(String[] args) {
-	parseInput();
-
-        Arrays.sort(P);
-
+        parseInput();
         
-        Point Px[] = new Point[n/2];
-        Point Py[] = new Point[n/2];
+        Point Px[] = new Point[n];        
+        Point Py[] = new Point[n];        
+        System.arraycopy(P, 0, Px, 0, P.length);
+        System.arraycopy(P, 0, Py, 0, P.length);
+        Arrays.sort(Px, (a, b) -> (int) (a.getX() - b.getY()));
+        Arrays.sort(Px, (a, b) -> (int) (a.getX() - b.getY()));
         
-        Point result = ClosestPairRec(Px, Py);	
+        Point result = closestPairRec(Px, Py);
     }
-
-    private static Point ClosestPairRec(Point[] px, Point[] py) {
-	
+    
+    
+    private static Point closestPairRec(Point[] px, Point[] py) {
+        
         return null;
     }
-
+    
     public static void parseInput() {
 	Scanner in = new Scanner(System.in);
 
@@ -50,7 +50,7 @@ public class CP {
 	    }
 	}
     }
-
+    
     public static void parseNamePoint(String l) {
 	//	System.out.println("ParseNamePoint: " + l);
 	System.out.println("----------------------------------------");
