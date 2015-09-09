@@ -13,20 +13,21 @@ public class CP {
     private static Pattern patternName = Pattern.compile(pairName);
 
     private static int n = 0;
-    private static double P[] = new double[10];    
+    private static Point P[] = new Point[10];    
     
     public static void main(String[] args) {
 	parseInput();
 
         Arrays.sort(P);
+
         
-        double Px[] = new double[n/2];
-        double Py[] = new double[n/2];
+        Point Px[] = new Point[n/2];
+        Point Py[] = new Point[n/2];
         
         Point result = ClosestPairRec(Px, Py);	
     }
 
-    private static Point ClosestPairRec(double[] px, double[] py) {
+    private static Point ClosestPairRec(Point[] px, Point[] py) {
 	
         return null;
     }
