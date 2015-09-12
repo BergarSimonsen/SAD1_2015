@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,6 @@ public class CP {
     public static void main(String[] args) {
         parseInput();
         if(P == null) die();
-        //printPointArray(P);
         
         Point Px[] = new Point[n];        
         Point Py[] = new Point[n];        
@@ -48,29 +49,30 @@ public class CP {
     
     private static Point[] closestPairRec(Point[] px, Point[] py) {
         if (px.length <= 3){
-            Point[] pair = null;
+            Point[] pair = new Point[2];
             double d = Double.MAX_VALUE;
             for(int i = 0 ; i < px.length ; i++)
                 for(int j = i + 1 ; j < px.length ; j++) {
-                    if (getDistance(px[i], px[j]) < d) {
+                    double pairD = getDistance(px[i], px[j]);
+                    if (pairD < d) {
                         pair[0] = px[i];
                         pair[1] = px[j];
+                        d = pairD;
                     }
                 }
             return pair; 
         }  
-        
-        Point qx[] = new Point[(int)Math.floor(px.length/2)];
-        Point qy[] = new Point[(int)Math.ceil(px.length/2)];
-        Point rx[] = new Point[(int)Math.floor(px.length/2)];
-        Point ry[] = new Point[(int)Math.ceil(px.length/2)];
-        for(int i = 0 ; i < (int)Math.floor(px.length/2) ; i++) {
+        Point qx[] = new Point[(int)Math.floor(px.length/2.0d)];
+        Point qy[] = new Point[(int)Math.floor(px.length/2.0d)];
+        Point rx[] = new Point[(int)Math.ceil(px.length/2.0d)];
+        Point ry[] = new Point[(int)Math.ceil(px.length/2.0d)];
+        for(int i = 0 ; i < (int)Math.floor(px.length/2.0d) ; i++) {
             qx[i] = px[i];
             qy[i] = py[i];
         }        
-        for(int i = (int)Math.ceil(px.length/2) ; i < px.length ; i++) {
-            rx[i] = px[i];
-            ry[i] = py[i];
+        for(int i = (int)Math.floor(px.length/2.0d) ; i < px.length ; i++) {
+            rx[i - (int)Math.floor(px.length/2.0d)] = px[i];
+            ry[i - (int)Math.floor(px.length/2.0d)] = py[i];
         }
         
         Point pairQ[] = closestPairRec(qx, qy);
@@ -79,16 +81,15 @@ public class CP {
         double delta = Math.min(getDistance(pairQ[0], pairQ[1]),
                 getDistance(pairR[0], pairR[1]));
         Point l = getMaxXPoint(qx);
-        double maxX = l.getX();
         
         List<Point> sy = new ArrayList<>();
         for (Point p : py) {
-            if (p.getX() <= Math.abs(maxX - delta)) {
+            if (getDistance(l, p) <= delta) {
                 sy.add(p);
             }
         }
         
-        double d = Double.MAX_VALUE;
+        double d = Double.POSITIVE_INFINITY;
         Point[] pair = new Point[2];
         for(int i = 0 ; i < sy.size() ; i++)         
             for(int j = i + 1 ; j < 15 ; j++) {
@@ -109,13 +110,14 @@ public class CP {
     }
     
     private static double getDistance(Point a, Point b) {
-        return Math.sqrt(Math.pow(b.getX() - a.getX(), 2) 
+        double d = Math.sqrt(Math.pow(b.getX() - a.getX(), 2) 
                 + Math.pow(b.getY() - a.getY(), 2));
+        return d;
     }
     
     private static Point getMaxXPoint(Point[] qx) {
         Point pMax = null;
-        double max = Double.MIN_VALUE;
+        double max = Double.NEGATIVE_INFINITY;
         for (Point p : qx) {
             if (p.getX() > max) {
                 pMax = p;
@@ -218,3 +220,4 @@ class PointCmpY implements Comparator<Point> {
         return Double.compare(a.getY(), b.getY());
     }
 }
+
