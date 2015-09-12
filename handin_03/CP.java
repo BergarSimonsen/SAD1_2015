@@ -17,9 +17,9 @@ public class CP {
       pairScientific matches numbers in scientific notation: 12 1.09100e+03 9.58300e+02
     */
     
-    private static final String pairNumber = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+(\\s)*-?[0-9]+";
-    private static final String pairName = "[a-zA-Z]+ -?[0-9]+ -?[0-9]+";    
-    private static final String dimension = "DIMENSION: [0-9]+";
+    private static final String pairNumber = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+(.[0-9]*)*(\\s)*-?[0-9]+(.[0-9]*)*";
+    private static final String pairName = "[a-zA-Z0-9]+ -?[0-9]+(.[0-9]*)* -?[0-9]+(.[0-9]*)*";    
+    private static final String dimension = "DIMENSION(\\s)*:(\\s)*[0-9]+";
     private static final String pairScientific = "(\\s)*-?[0-9]+(\\s)*-?[0-9]+-?[0-9]*[.][0-9]*[e][+][0-9]+(\\s)*-?[0-9]*[.][0-9]*[e][+][0-9]+";
 
     private static final Pattern patternNumber = Pattern.compile(pairNumber);
@@ -33,7 +33,7 @@ public class CP {
     
     public static void main(String[] args) {
         parseInput();
-        if(P == null) die();
+        if(P == null) die("Error parsing input. Exiting.");
         
         Point Px[] = new Point[n];        
         Point Py[] = new Point[n];        
@@ -42,6 +42,7 @@ public class CP {
         System.out.println("After creating Px & Py");
         Arrays.sort(Px, new PointCmpX());
         Arrays.sort(Py, new PointCmpY());
+	System.out.println("XX");
         
         Point[] result = closestPairRec(Px, Py);
         System.out.println(n + " " + getDistance(result[0], result[1]));
@@ -123,7 +124,7 @@ public class CP {
                 pMax = p;
             }
         }
-        if(pMax == null) die();
+        if(pMax == null) die("ERROR");
         return pMax;
     }
     
@@ -146,16 +147,16 @@ public class CP {
 		if(P != null)
 		    parsePoint(l);
 		else
-		    die();
+		    die("ERROR");
 	    } else {
-		System.out.println("no match");
+		System.out.println("no match. line = " + l);
 	    }
 	}
     }
     
     public static void parseDimension(String l) {
 	String[] tmp = l.split(" ");
-	n = Integer.parseInt(tmp[1]);
+	n = Integer.parseInt(tmp[tmp.length - 1]);
 	P = new Point[n];
     }
     
@@ -170,7 +171,7 @@ public class CP {
 
 	//	Point p = new Point(Double.parseDouble(list.get(1)), Double.parseDouble(list.get(2)), list.get(0));
 	Point p = new Point(Double.valueOf(list.get(1)), Double.valueOf(list.get(2)), list.get(0));
-	System.out.println(p.toString());
+	//	System.out.println(p.toString());
 	P[curIndex++] = p;
     }
     
@@ -179,9 +180,9 @@ public class CP {
 	    System.out.println(String.format("arr[%d] == %s", i, arr[i].toString()));
     }
     
-    private static void die() {
+    private static void die(String msg) {
 	// Fatal error. Kill program.
-	System.out.println("Error parsing input. Exiting.");
+	System.out.println(msg);
 	System.exit(-1);
     }      
 }
@@ -210,6 +211,7 @@ class Point {
 class PointCmpX implements Comparator<Point> {
     @Override
     public int compare(Point a, Point b) {
+	//	System.out.println(String.format("a %f, b %f", a.getX(), b.getX()));
         return Double.compare(a.getX(), b.getX());
     }
 }
