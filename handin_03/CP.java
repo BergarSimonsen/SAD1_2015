@@ -32,8 +32,12 @@ public class CP {
     private static int curIndex = 0;
     
     public static void main(String[] args) {
+	if(args.length > 0)
+	    System.out.println("filename: " + args[0]);
         parseInput();
         if(P == null) die("Error parsing input. Exiting.");
+
+	System.out.println(String.format("Dimension: %d, P.length: %d", n, P.length));
         
         Point Px[] = new Point[n];        
         Point Py[] = new Point[n];        
@@ -124,7 +128,7 @@ public class CP {
                 pMax = p;
             }
         }
-        if(pMax == null) die("ERROR");
+        if(pMax == null) die("pMax == null");
         return pMax;
     }
     
@@ -147,9 +151,9 @@ public class CP {
 		if(P != null)
 		    parsePoint(l);
 		else
-		    die("ERROR");
+		    die("ERROR Creating array");
 	    } else {
-		System.out.println("no match. line = " + l);
+		//		System.out.println("no match. line = " + l);
 	    }
 	}
     }
