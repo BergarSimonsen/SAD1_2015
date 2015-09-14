@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -43,13 +45,12 @@ public class CP {
         Point Py[] = new Point[n];        
         System.arraycopy(P, 0, Px, 0, P.length);
         System.arraycopy(P, 0, Py, 0, P.length);
-        System.out.println("After creating Px & Py");
         Arrays.sort(Px, new PointCmpX());
         Arrays.sort(Py, new PointCmpY());
 	System.out.println("XX");
         
         Point[] result = closestPairRec(Px, Py);
-        System.out.println(n + " " + getDistance(result[0], result[1]));
+        System.out.println(n + " " + Math.sqrt(getDistance(result[0], result[1])));
     }    
     
     private static Point[] closestPairRec(Point[] px, Point[] py) {
@@ -57,9 +58,9 @@ public class CP {
             Point[] pair = new Point[2];
             double d = Double.MAX_VALUE;
             for(int i = 0 ; i < px.length ; i++)
-                for(int j = i + 1 ; j < px.length ; j++) {
+                for(int j = i + 1; j < px.length ; j++) {
                     double pairD = getDistance(px[i], px[j]);
-                    if (pairD < d) {
+                    if (Double.compare(pairD, d) < 0) {
                         pair[0] = px[i];
                         pair[1] = px[j];
                         d = pairD;
@@ -83,13 +84,18 @@ public class CP {
         Point pairQ[] = closestPairRec(qx, qy);
         Point pairR[] = closestPairRec(rx, ry);
         
-        double delta = Math.min(getDistance(pairQ[0], pairQ[1]),
-                getDistance(pairR[0], pairR[1]));
+//        double delta = Math.min(getDistance(pairQ[0], pairQ[1]),
+//                getDistance(pairR[0], pairR[1]));
+        double delta;
+        double dq = getDistance(pairQ[0], pairQ[1]);
+        double dr = getDistance(pairR[0], pairR[1]);
+        if(Double.compare(dq, dr) <= 0) delta = dq;
+        else delta = dr;
         Point l = getMaxXPoint(qx);
         
         List<Point> sy = new ArrayList<>();
         for (Point p : py) {
-            if (getDistance(l, p) <= delta) {
+            if (Double.compare(getDistance(l, p), delta) <= 0) {
                 sy.add(p);
             }
         }
@@ -97,26 +103,27 @@ public class CP {
         double d = Double.POSITIVE_INFINITY;
         Point[] pair = new Point[2];
         for(int i = 0 ; i < sy.size() ; i++)         
-            for(int j = i + 1 ; j < 15 ; j++) {
+            for(int j = i + 1 ; j < i + 15 ; j++) {
                 if(j >= sy.size()) break;
                 double pairD = getDistance(sy.get(i), sy.get(j));
-                if(pairD < d) {
+                if(Double.compare(pairD, d) < 0) {
                     d = pairD;
                     pair[0] = sy.get(i);
                     pair[1] = sy.get(j);
                 }
             }
         
-        if (d < delta)     
+               
+        if (Double.compare(d, delta) < 0)     
             return pair;
-        else if (getDistance(pairQ[0], pairQ[1]) <= getDistance(pairR[0], pairR[1]))
+        else if (Double.compare(getDistance(pairQ[0], pairQ[1]), getDistance(pairR[0], pairR[1])) < 0)
                 return pairQ;
         else return pairR;
     }
     
     private static double getDistance(Point a, Point b) {
-        double d = Math.sqrt(Math.pow(b.getX() - a.getX(), 2) 
-                + Math.pow(b.getY() - a.getY(), 2));
+        //double d = Math.hypot(b.getX() - a.getX(), b.getY() - a.getY());
+        double d = (Math.pow(b.getX() - a.getX(), 2) +  Math.pow(b.getY() - a.getY(), 2));
         return d;
     }
     
@@ -124,7 +131,7 @@ public class CP {
         Point pMax = null;
         double max = Double.NEGATIVE_INFINITY;
         for (Point p : qx) {
-            if (p.getX() > max) {
+            if (Double.compare(p.getX(), max) > 0) {
                 pMax = p;
             }
         }
@@ -134,6 +141,11 @@ public class CP {
     
     public static void parseInput() {
 	Scanner in = new Scanner(System.in);
+//        try {
+//            in = new Scanner(new FileReader("input.txt"));
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(CP.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
 	while(true) {
 	    if(!in.hasNextLine()) break;
