@@ -7,6 +7,7 @@ public class DP {
     private static ArrayList<Entity> entities;
     private static Entity[] entArr;
     private static int[][] cost;
+    private static String[] costLabel = {"A", "R", "N", "D", "C", "Q", "E", "G", "H", "I", "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V", "B", "Z", "X", "*"};
     private static Scanner in;
 
     private static boolean debug = false;
