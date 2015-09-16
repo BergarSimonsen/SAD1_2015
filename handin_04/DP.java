@@ -9,16 +9,26 @@ public class DP {
     private static int[][] cost;
     private static Scanner in;
 
-    private static boolean debug = true;
+    private static boolean debug = false;
 
     private static final String number = "\\s*-?[0-9]*";
     private static final Pattern numberPattern = Pattern.compile(number);
 
     public static void main(String[] args) {
+	parseArgs(args);
 	parseInput();
 	parseCost();
+	log("testing");
 	entArr = entities.toArray(new Entity[entities.size()]);
 
+    }
+
+    public static void parseArgs(String[] args) {
+	if(args.length > 0) {
+	    for(String s : args) {
+		if(s.equals("-v")) debug = true;
+	    }
+	}
     }
 
     private static void parseCost() {
