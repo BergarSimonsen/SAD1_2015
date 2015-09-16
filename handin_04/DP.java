@@ -10,36 +10,37 @@ public class DP {
     private static String[] costLabel = {"A", "R", "N", "D", "C", "Q", "E", "G", "H", "I", "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V", "B", "Z", "X", "*"};
     private static Scanner in;
 
-    private static boolean debug = false;
-
     private static final String number = "\\s*-?[0-9]*";
     private static final Pattern numberPattern = Pattern.compile(number);
+
+    private static final String COST_FILE = "data/BLOSUM62.txt";
+    private static final int COST_DIMENSION = 24;
 
     public static void main(String[] args) {
 	parseArgs(args);
 	parseInput();
 	parseCost();
-	log("testing");
 	entArr = entities.toArray(new Entity[entities.size()]);
 
+	//Logger.log(entArr);
     }
 
     public static void parseArgs(String[] args) {
 	if(args.length > 0) {
 	    for(String s : args) {
-		if(s.equals("-v")) debug = true;
+		if(s.equals("-v")) Logger.debug = true;
 	    }
 	}
     }
 
     private static void parseCost() {
 	try {
-	    cost = new int[24][24];
+	    cost = new int[COST_DIMENSION][COST_DIMENSION];
 
 	    int l = 0;
 	    int k = 0;
 	    
-	    BufferedReader br = new BufferedReader(new FileReader(new File("data/BLOSUM62.txt")));
+	    BufferedReader br = new BufferedReader(new FileReader(new File(COST_FILE)));
 	    String line = br.readLine();
 	    while(line != null) {
 		if(!line.startsWith("#")) {
@@ -50,7 +51,7 @@ public class DP {
 			    if(tmp[i] == null || tmp[i].length() == 0 || tmp[i] == " ")
 				continue;
 			    else if(isNumber(tmp[i])) {
-				if(j < 24 && k < 24) {
+				if(j < COST_DIMENSION && k < COST_DIMENSION) {
 				    String s = tmp[i].trim();
 				    cost[k][j++] = Integer.parseInt(s);
 				}
@@ -100,13 +101,22 @@ public class DP {
 	    }
 	}
     }
+}
 
-    private static void log(String msg) {
+class Logger {
+    public static boolean debug = false;
+    
+    public static void log(String msg) {
 	if(debug) System.out.println(msg);
     }
 
-    private static void log(int msg) {
+    public static void log(int msg) {
 	log(String.valueOf(msg));
+    }
+
+    public static void log(Entity[] arr) {
+	for(int i = 0; i < arr.length; i++)
+	    log(String.format("[%d]: %s", i, arr[i].toString()));
     }
 }
 
