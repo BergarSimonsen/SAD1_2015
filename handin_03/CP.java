@@ -137,11 +137,11 @@ public class CP {
     
     public static void parseInput() {
 	Scanner in = new Scanner(System.in);
-        try {
+	/*      try {
             in = new Scanner(new FileReader("input.txt"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CP.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	    } */
 
 	while(true) {
 	    if(!in.hasNextLine()) break;
