@@ -41,7 +41,7 @@ public class CP {
         parseInput();
         if(P == null) die("Error parsing input. Exiting.");
 
-	System.out.println(String.format("Dimension: %d, P.length: %d", n, P.length));
+	//System.out.println(String.format("Dimension: %d, P.length: %d", n, P.length));
         
         Point2D.Double Px[] = new Point2D.Double[n];        
         Point2D.Double Py[] = new Point2D.Double[n];        
