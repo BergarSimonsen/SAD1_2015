@@ -13,13 +13,12 @@ public class DP {
     private static final String number = "\\s*-?[0-9]*";
     private static final Pattern numberPattern = Pattern.compile(number);
 
-    private static final String COST_FILE = "data/BLOSUM62.txt";    
+    private static final String COST_FILE = "data/BLOSUM62.txt";
     private static final int COST_DIMENSION = 24;
 
-    private static Match[][] Memoizer;
+    private static  Match[][] Memoizer;
 	
     public static void main(String[] args) {
-    	entities = new ArrayList<Entity>();
 	parseArgs(args);
 	parseInput();
 	parseCost();
@@ -30,27 +29,28 @@ public class DP {
 		compare(entArr[i],entArr[j]);
 	    }
 	}
-	/*
-	for(int i = 0; i < Memoizer.length; i++)
-	    for(int j = 0; j < Memoizer[i].length; j++)
-		Logger.log(Memoizer[i][j].toString()); */
+
+	for(int i = 0; i < Memoizer.length; i++) {
+	    for(int j = 0; j < Memoizer[i].length; j++) {
+		Logger.log(Memoizer[i][j].toString());
+	    }
+	}
+		
+	//Logger.log(entArr);
     }
 
     private static void compare(Entity entity1, Entity entity2){
 	Memoizer = new Match[entity1.data.length+1][entity2.data.length+1];
 		
 	Match match = maximumCost(entity1.data, entity2.data);
-	match.name = String.format("%s--%s", entity1.name, entity2.name);
 	int cost = match.cost;
 	String data1 = match.data1;
 	String data2 = match.data2;
-	//	System.out.println(entity1.name + " -- " + entity2.name + ": " + cost);
-	
-	Logger.log(entity1.name + "--" + entity2.name + ": " + cost);
-	Logger.log(data1);
-	Logger.log(data2);
-	Logger.log("");
-		
+
+	/*	Logger.log(entity1.name + " -- " + entity2.name + " " + cost);
+
+	Logger.log("Data1: " + data1);
+	Logger.log("Data2: " + data2); */
     }
 	
     private static Match maximumCost(String[] pdata1, String[] pdata2) {
@@ -84,7 +84,8 @@ public class DP {
 		char letter1 = pdata1[0].toCharArray()[0];
 		int letter1Index = findIndex(letter1);
 		int _down = cost[letter1Index][23];
-		String[] _pdata1 = Arrays.copyOfRange(pdata1, 1, pdata1.length);
+		String[] _pdata1 = Arrays.copyOfRange(pdata1, 1,
+						      pdata1.length);
 
 		Match case3 = maximumCost(_pdata1, pdata2);
 
@@ -138,6 +139,8 @@ public class DP {
 		}
 
 		bestMatch = new Match(maxCost, data1, data2);
+
+				
 	    }
 
 	    Memoizer[pdata1.length][pdata2.length] = bestMatch;
@@ -147,7 +150,7 @@ public class DP {
 	
     private static int findIndex(char letter) {
 	for (int i = 0; i < costLabel.length; i++) {
-	    if (costLabel[i].toCharArray()[0] == letter)
+	    if (costLabel[i] == String.valueOf(letter))
 		return i;
 	}
 	return 23;
@@ -229,42 +232,7 @@ public class DP {
 	    }
 	}
     }
-
-    private static void readFile(String fileName) {
-	File file = new File(fileName);
-	try {
-	    Scanner sc = new Scanner(file);
-
-	    Entity item = null;
-	    String pSequence = null;
-
-	    while (sc.hasNext()) {
-		String line = sc.nextLine();
-		if (line.startsWith(">")) {
-		    if (item != null) {
-			//System.out.println(line);
-			//System.out.println(pSequence);
-			item.addPData(pSequence);
-			entities.add(item);
-		    }
-		    item = new Entity(line.replace(">", "").split(" ")[0]);
-		    pSequence = new String();
-		} else {
-		    pSequence += line;
-		}
-	    }
-	    if (item != null) {
-		item.addPData(pSequence);
-		entities.add(item);
-	    }
-	} catch (FileNotFoundException e) {
-	    e.printStackTrace();
-	}
-    }
 }
-
-
-
 
 class Logger {
     public static boolean debug = false;
@@ -293,22 +261,10 @@ class Entity {
     }
 
     public Entity(String name, ArrayList<String> dataList) {
-	this.name = name.split(" ")[0].substring(1);
-
-	String tmp = "";
-	for(String s : dataList)
-	    tmp += s;
-
-	this.data = tmp.split("");
-    }
-    
-    public Entity(String name,String dataList){
-    	this.name = name;
-    	this.data = dataList.split("");
-    }
-    
-    public Entity(String name){
-    	this.name = name;
+	this.name = name.substring(1);
+	this.data = new String[dataList.size()];
+	for(int i = 0; i < dataList.size(); i++)
+	    this.data[i] = dataList.get(i);
     }
 
     @Override
@@ -326,19 +282,16 @@ class Entity {
 	n = n.substring(0, n.length() - 1); // remove last whitespace
 	return new Entity(n, data);
     }    
-    
-    public void addPData(String stringPData){
-    	this.data = stringPData.split("");
-    }
 }
 
 class Match {
-    public String name;
+	
     public int cost;
     public String data1;
     public String data2;
 	
     public Match(int cost, String data1, String data2){
+		
 	this.cost = cost;
 	this.data1 = data1;
 	this.data2 = data2;
@@ -346,6 +299,6 @@ class Match {
 
     @Override
     public String toString() {
-	return String.format("%s%d %n%s %n%s%n", name, cost, data1, data2);
+	return String.format("cost: %d, data1: %s, data2: %s", cost, data1, data2);
     }
 }
