@@ -34,27 +34,40 @@ public class Test {
 	    l1.sort((p1, p2) -> p1.compareTo(p2));
 	    l2.sort((p1, p2) -> p1.compareTo(p2));
 
+
 	    for(int i = 0; i < l1.size(); i++) {
-		//		System.out.println("----------------------------------------------------");
+		//	    for(int i = 20; i < ; i++) {
+
 		//		System.out.printf("%d == %d", l1.get(i).cost, l2.get(i).cost);
 		//		System.out.printf("l1.data.length = %d, l2.data.length = %d", l1.get(i).data.length(), l2.get(i).data.length());
-		//		System.out.printf("l1: %s %d %s %n", l1.get(i).name, l1.get(i).cost, l1.get(i).data);
-		//		System.out.printf("l2: %s %d %s %n", l2.get(i).name, l2.get(i).cost, l2.get(i).data);
-		//		System.out.println("----------------------------------------------------");		
-	    }
+		//		if(!l1.get(i).name.equals(l2.get(i).name)) {
+
+		System.out.println("----------------------------------------------------");
+		if(l1.get(i).name1.equals(l2.get(i).name1)) {
+		    System.out.printf("%s %d %n %s %n", l1.get(i).origName, l1.get(i).cost, l1.get(i).data);
+		    System.out.printf("%s %d %n %s %n", l2.get(i).origName, l2.get(i).cost, l2.get(i).data);		    
+		}
+		/*		System.out.println("index: " + i);
+		System.out.printf("l1: %s %d %s %n", l1.get(i).name, l1.get(i).cost, l1.get(i).data);
+		System.out.printf("l2: %s %d %s %n", l2.get(i).name, l2.get(i).cost, l2.get(i).data); */
+		System.out.println("----------------------------------------------------");				    
+		//		}
+
+	    } 
 
 	    for(int i = 0; i < l1.size(); i++) {
 		stringRes.add(String.format("%s____%d", l1.get(i).name, l1.get(i).cost));
-		stringRes.add(String.format("%s____%d", l2.get(i).name, l2.get(i).cost));		
-		//	result.add(l1.get(i));
+		stringRes.add(String.format("%s____%d", l2.get(i).name, l2.get(i).cost));
+		//		result.add(l1.get(i));
 		//		result.add(l2.get(i));
 	    }
 
-	    //	    System.out.printf("l1.length: %d %nl2.length: %d %nresult.length: %d %n", l1.size(), l2.size(), stringRes.size());
+	    //	    System.out.printf("l1.length: %d %nl2.length: %d %nresult.length: %d %n", l1.size(), l2.size(), result.size());
+	    	    System.out.printf("l1.length: %d %nl2.length: %d %nresult.length: %d %n", l1.size(), l2.size(), stringRes.size()); 
 
-	    for(String s : stringRes) {
+	    /*	    for(String s : stringRes) {
 		System.out.println(s);
-	    }
+		} */
 
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -79,27 +92,31 @@ public class Test {
 	    //	    System.out.println("--- " + line);
 	    //	    if(m.matches()) {
 	    if(line.contains(":")) {
-		//		System.out.println("match");
 		if(name.length() > 0 && data.length() > 0 && cost > Integer.MIN_VALUE) {
+
+
 		    //		    System.out.println("---------- obj exists");
 		    list.add(new Pair(name, data, cost));
+		    
 		    name = "";
 		    data = "";
 		    cost = Integer.MIN_VALUE;
 		}
+
 		
 		//		System.out.println("match");
 		//		System.out.println(line);
 		String[] tmp = line.split(" ");
 		name = tmp[0].substring(0, tmp[0].length() - 1);
 		cost = Integer.parseInt(tmp[1]);
-		//		System.out.println(name);
-		//		System.out.println(cost);
+
+
 	    } else {
 		data += line;
-		//		System.out.println(line);		    
 	    }
 	}
+
+	list.add(new Pair(name, data, cost));
  
 	br.close();
 	fis.close();
@@ -108,30 +125,40 @@ public class Test {
 
 class Pair implements Comparable<Pair> {
     public final String name;
+    public final String name1;
+    public final String name2;
+    public final String origName;
     public final String data;
     public final int cost;
 
     public Pair(String name, String data, int cost) {
+	this.origName = name;
 	String[] tmp = name.split("--");
 
 	String s1 = tmp[0];
 	String s2 = tmp[1];
 
-	if(s1.compareTo(s2) < 0)
+	this.name1 = tmp[0];
+	this.name2 = tmp[1];
+
+	if(s1.compareToIgnoreCase(s2) <= 0)
 	    this.name = s1 + "--" + s2;
 	else
 	    this.name = s2 + "--" + s1;
 	
-	//	this.name = name;
-
-	String t = data.replace(" ", "");
-	this.data = t;
-	//	this.data = data;
+	this.data = data;
 	this.cost = cost;
     }
 
     @Override
     public int compareTo(Pair that) {
-	return this.name.compareTo(that.name);
+	String first = this.name.replace("--", "");
+	String second = that.name.replace("--", "");
+
+	return first.compareToIgnoreCase(second);
+
+	
+	//	return this.name.compareToIgnoreCase(that.name);
+	//	return this.name.ignorecase().compareTo(that.name.ignorecase());
     }
 }

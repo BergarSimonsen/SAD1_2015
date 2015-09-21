@@ -32,7 +32,8 @@ public class DP {
 	for(int i = 0; i<entArr.length; i++){
 	    for(int j = i+1; j<entArr.length; j++){
 		Match m = compare(entArr[i],entArr[j]);
-		Logger.log(m.toString());
+		//		Logger.log(m.toString());
+		System.out.println(m.toString());
 	    }
 	}
 
@@ -369,6 +370,6 @@ class Match {
 
     @Override
     public String toString() {
-	return String.format("%s: %d %n%s %n%s%n", name, cost, data1, data2);
+	return String.format("%s: %d %n%s %n%s", name, cost, data1, data2);
     }
 }
