@@ -25,18 +25,23 @@ public class DP {
 	parseCost();
 	entArr = entities.toArray(new Entity[entities.size()]);
 
+
+	/*	for(Entity e : entArr)
+	    Logger.log(e.name); */
+
 	for(int i = 0; i<entArr.length; i++){
 	    for(int j = i+1; j<entArr.length; j++){
-		compare(entArr[i],entArr[j]);
+		Match m = compare(entArr[i],entArr[j]);
+		Logger.log(m.toString());
 	    }
 	}
-	/*
-	for(int i = 0; i < Memoizer.length; i++)
+
+	/*	for(int i = 0; i < Memoizer.length; i++)
 	    for(int j = 0; j < Memoizer[i].length; j++)
 		Logger.log(Memoizer[i][j].toString()); */
     }
 
-    private static void compare(Entity entity1, Entity entity2){
+    private static Match compare(Entity entity1, Entity entity2){
 	Memoizer = new Match[entity1.data.length+1][entity2.data.length+1];
 		
 	Match match = maximumCost(entity1.data, entity2.data);
@@ -45,11 +50,15 @@ public class DP {
 	String data1 = match.data1;
 	String data2 = match.data2;
 	//	System.out.println(entity1.name + " -- " + entity2.name + ": " + cost);
-	
+
+	return match;
+
+	/*
 	Logger.log(entity1.name + "--" + entity2.name + ": " + cost);
 	Logger.log(data1);
 	Logger.log(data2);
 	Logger.log("");
+	*/
 		
     }
 	
@@ -203,18 +212,28 @@ public class DP {
     }
 
     private static void parseInput() {
+	boolean lineSet = false;
 	entities = new ArrayList<Entity>();
 	in = new Scanner(System.in);
+	String l = "";
 
 	while(in.hasNextLine()) {
-	    String l = in.nextLine();
+	    if(!lineSet)
+		l = in.nextLine();
+	    else
+		lineSet = false;
+
 	    if(l.startsWith(">")) {
-		parseEntity(l);
+		String tmp = parseEntity(l);
+		if(tmp.length() > 0) {
+		    l = tmp;
+		    lineSet = true;
+		}
 	    }
 	}
     }
 
-    private static void parseEntity(String l) {
+    private static String parseEntity(String l) {
 	String[] name = l.split(" ");
 	ArrayList<String> data = new ArrayList<String>();
 	l = in.nextLine();
@@ -222,12 +241,16 @@ public class DP {
 	    data.add(l);
 	    if(in.hasNextLine()) {
 		l = in.nextLine();
-		entities.add(Entity.createEntity(name, data));
+		if(l.startsWith(">")) {
+		    entities.add(Entity.createEntity(name, data));
+		    return l;
+		}
 	    } else {
 		entities.add(Entity.createEntity(name, data));		
 		break;
 	    }
 	}
+	return "";
     }
 
     private static void readFile(String fileName) {
@@ -346,6 +369,6 @@ class Match {
 
     @Override
     public String toString() {
-	return String.format("%s%d %n%s %n%s%n", name, cost, data1, data2);
+	return String.format("%s: %d %n%s %n%s%n", name, cost, data1, data2);
     }
 }
