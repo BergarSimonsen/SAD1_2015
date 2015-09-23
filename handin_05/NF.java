@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
+
 public class NF {
     private static int n;
     private static int m;
@@ -8,12 +10,19 @@ public class NF {
     private static Scanner in;
     
     public static void main(String[] args) {
-	parseArgs(args);
-	parseInput();
-	//	Logger.log(nodes);
-	//	Logger.log(edges);
+		parseArgs(args);
+        parseInput();
+        //Gf kept as an adjacency list
+         List<List<Edge>>gPrime;  
+        
+        
     }
-
+    
+    private static int augment() {
+        
+        return 0;
+    }
+    
     public static void parseInput() {
 	// parse n
 	in = new Scanner(System.in);
@@ -61,24 +70,27 @@ public class NF {
 class Edge {
     public final int u;
     public final int v;
-    public final int c;
-
-    public Edge(int u, int v, int c) {
-	this.u = u;
-	this.v = v;
-	this.c = c;
+    public final int capacity;
+    public int flow;
+    
+    public Edge(int u, int v, int capacity){
+        this.u = u;
+        this.v = v;
+        this.capacity = capacity;
+        this.flow = 0;
     }
-
-    public Edge(String[] data) {
+    
+     public Edge(String[] data) {
 	this.u = Integer.parseInt(data[0]);
 	this.v = Integer.parseInt(data[1]);
-	this.c = Integer.parseInt(data[2]);
+	this.capacity = Integer.parseInt(data[2]);
+        this.flow = 0;
     }
 
     @Override
     public String toString() {
-	return String.format("%d -- %d (%d)", u, v, c);
-    }
+	return String.format("%d -- %d (%d)", u, v, capacity);
+    }     
 }
 
 class Logger {
