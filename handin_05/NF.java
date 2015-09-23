@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Scanner;
 
 public class NF {
@@ -10,13 +9,33 @@ public class NF {
     private static Scanner in;
     
     public static void main(String[] args) {
-	parseArgs(args);
+        parseArgs(args);
         parseInput();
         //Gf kept as an adjacency list
-	List<List<Edge>>gPrime;  
+        Adjacencies[] gPrime = new Adjacencies[n];  
+        
+        //residual graph creation (reverted edges for the initial graph)
+        for(int i = 0 ; i < m ; i++){
+            gPrime[edges[i].u].entering.add(edges[i]);
+            gPrime[edges[i].v].leaving.add(edges[i]);
+        }        
     }
     
-    private static int augment() {
+    private static int getFlow() {
+        int sum = 0;
+        for(int i = 0 ; i < m ; i++) {
+            sum += edges[i].flow;
+        }
+        return sum;
+    }
+    
+    private static Path getNewPath() {
+        //TODO DFS
+        return new Path();
+    }
+    
+    private static int augment(int flow, Path p) {
+        //TODO
         return 0;
     }
     
