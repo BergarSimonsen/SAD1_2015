@@ -24,12 +24,13 @@ public class NF {
         
         //Running time O(Cm), assuming m > n. Could be improved to O(Cn), will work on this.
         List<Edge> p = getNewPath();
+        int c = 0;
         while(p != null) {  // O(C)
-            int c = 0;
-            System.out.println("Iteration: " + c++ + ", flow: " + flow);
+            System.out.println("Iteration: " + c + ", flow: " + flow);
             flow = augment(flow, p); //O(n)
             updateResidualGraph(); //O(m)  >> could be eliminated
             p = getNewPath();
+            c++;
         }
         
         System.out.println("Flow = " + flow);
@@ -41,8 +42,12 @@ public class NF {
             gPrime[i] = new Adjacencies();
         
         for(int i = 0 ; i < m ; i++){
-            if(edges[i].flow < edges[i].capacity) {
-                int residual = edges[i].capacity - edges[i].flow;
+            if(edges[i].flow < edges[i].capacity || edges[i].capacity == -1) {
+                int residual;
+                if( edges[i].capacity == -1)        //infinite capacity
+                    residual = Integer.MAX_VALUE;
+                else residual = edges[i].capacity - edges[i].flow;
+                
                 Edge e = new Edge(edges[i].u, edges[i].v, residual, true, i);
                 gPrime[e.u].leaving.add(e);
                 gPrime[e.v].entering.add(e);
