@@ -5,37 +5,76 @@ public class NF {
     private static int m;
     private static String[] nodes;
     private static Edge[] edges;
+    private static Adjacencies[] gPrime;
 
     private static Scanner in;
     
     public static void main(String[] args) {
         parseArgs(args);
         parseInput();
-        //Gf kept as an adjacency list
-        Adjacencies[] gPrime = new Adjacencies[n];  
+        updateResidualGraph();
+        int flow = 0;
         
-        //residual graph creation (reverted edges for the initial graph)
+        //Running time O(Cm), could be improved to O(Cn), will work on this.
+        Path p = getNewPath();
+        while(p != null) {  // O(C)
+            flow = augment(flow, p); //O(n)
+            updateResidualGraph(); //O(m)
+            p = getNewPath();
+        }
+        
+        //print flow? get the min cut??
+    }
+    
+    private static void updateResidualGraph() { //O(m)
+        gPrime = new Adjacencies[n];
+        
         for(int i = 0 ; i < m ; i++){
-            gPrime[edges[i].u].entering.add(edges[i]);
-            gPrime[edges[i].v].leaving.add(edges[i]);
+            if(edges[i].flow < edges[i].capacity) {
+                int residual = edges[i].capacity - edges[i].flow;
+                Edge e = new Edge(edges[i].u, edges[i].v, residual, true, i);
+                gPrime[e.u].leaving.add(e);
+                gPrime[e.v].entering.add(e);
+            }
+            if(edges[i].flow > 0) {
+                Edge e = new Edge(edges[i].v, edges[i].u, edges[i].flow, false, i);
+                gPrime[e.u].leaving.add(e);
+                gPrime[e.v].entering.add(e);
+            }
         }        
     }
     
-    private static int getFlow() {
+    private static int getFlow() { //O(m)
         int sum = 0;
         for(int i = 0 ; i < m ; i++) {
             sum += edges[i].flow;
         }
         return sum;
-    }
+    }  
     
-    private static Path getNewPath() {
+    private static Path getNewPath() {              //TODO DFS
         //TODO DFS
         return new Path();
     }
     
-    private static int augment(int flow, Path p) {
-        //TODO
+    private static int augment(int f, Path p) {
+        int b = getBottleneck(f, p);
+        for(Edge e : p.edges) {
+            if(e.isForward)
+                edges[e.gIndex].flow += b;
+            else
+                edges[e.gIndex].flow -= b ;
+        }
+        return getFlow();
+    }
+    
+    private static int getBottleneck(int f, Path p) {
+        int b = Integer.MAX_VALUE;
+        for(Edge e : p.edges) {
+            if(e.capacity < b) b = e.capacity;              //One of the three. I can't quite grasp
+            //if(e.capacity - f < b) b = e.capacity;        //which one it's supposed to be, what f is needed for.
+            //if(e.capacity - f < b) b = e.capacity - f;    //can you think about it?
+        }
         return 0;
     }
     
