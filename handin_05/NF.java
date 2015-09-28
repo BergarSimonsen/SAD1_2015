@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -25,15 +23,22 @@ public class NF {
         //Running time O(Cm), assuming m > n. Could be improved to O(Cn), will work on this.
         List<Edge> p = getNewPath();
         int c = 0;
-        while(p != null) {  // O(C)
-            System.out.println("Iteration: " + c + ", flow: " + flow);
+        while(!p.isEmpty()) {  // O(C)            
             flow = augment(flow, p); //O(n)
             updateResidualGraph(); //O(m)  >> could be eliminated
             p = getNewPath();
-            c++;
+            //System.out.println("Iteration: " + c + ", flow: " + flow);
+            //c++;            
         }
         
-        System.out.println("Flow = " + flow);
+        System.out.println("Max flow: " + flow);
+        
+        List<Edge> minCut = getMinCut();
+        System.out.println("Min cut:");
+        for(Edge e : minCut){
+            System.out.println(e.u + " " + e.v + " " + e.flow);
+        }
+        
     }
     
     private static void updateResidualGraph() { //O(m)
@@ -57,13 +62,16 @@ public class NF {
                 gPrime[e.u].leaving.add(e);
                 gPrime[e.v].entering.add(e);
             }
-        }        
+        }  
+        
+        int x = 2+1;
     }
     
     private static int getFlow() { //O(m)
         int sum = 0;
         for(int i = 0 ; i < m ; i++) {
-            sum += edges[i].flow;
+            if(edges[i].v == n-1)
+                sum += edges[i].flow;
         }
         return sum;
     }  
@@ -71,7 +79,7 @@ public class NF {
     private static List<Edge> getNewPath() {  //O(n + m) = O(m) for m > n
         boolean discovered[] = new boolean[n]; 
         List<Edge> path = new ArrayList<>();
-        DFS(0, n-1, path, discovered);          //O(n + m) = O(m) for m > n
+        DFSNewPath(0, n-1, path, discovered);          //O(n + m) = O(m) for m > n
         
         List<Edge> reversed = new ArrayList<>(); //O(n)
         for(int i = path.size() - 1 ; i >=0 ; i--)
@@ -80,11 +88,11 @@ public class NF {
         return reversed;
     }
     
-    private static int DFS(int v, int end, List<Edge> p, boolean[] discovered) { //O(n + m) = O(m) for m > n
+    private static int DFSNewPath(int v, int end, List<Edge> p, boolean[] discovered) { //O(n + m) = O(m) for m > n
         discovered[v] = true;
         for(Edge e : gPrime[v].leaving) {
             if(!discovered[e.v]) {
-                int curEnd = DFS(e.v, end, p, discovered);
+                int curEnd = DFSNewPath(e.v, end, p, discovered);
                 if(e.v == curEnd) {
                     p.add(e);
                     return v;                    
@@ -95,7 +103,7 @@ public class NF {
     }
     
     private static int augment(int f, List<Edge> p) {
-        int b = getBottleneck(f, p);
+        int b = getBottleneck(p);
         for(Edge e : p) {
             if(e.isForward)
                 edges[e.gIndex].flow += b;
@@ -105,24 +113,42 @@ public class NF {
         return getFlow();
     }
     
-    private static int getBottleneck(int f, List<Edge> p) {
+    private static int getBottleneck(List<Edge> p) {
         int b = Integer.MAX_VALUE;
         for(Edge e : p) {
-            if(e.capacity < b) b = e.capacity;              //One of the three. I can't quite grasp
-            //if(e.capacity - f < b) b = e.capacity;        //which one it's supposed to be, what f is needed for.
-            //if(e.capacity - f < b) b = e.capacity - f;    //can you think about it?
+            if(e.capacity < b) b = e.capacity;
         }
         return b;
+    }
+    
+    private static List<Edge> getMinCut() {
+        boolean discovered[] = new boolean[n]; 
+        List<Edge> minCut = new ArrayList<>();
+        DFSMinCut(0, minCut, discovered);        
+        
+        return minCut;
+    }
+    
+    private static void DFSMinCut(int v, List<Edge> minCut, boolean[] discovered) {
+        discovered[v] = true;
+        for(Edge e : gPrime[v].entering)
+            if(!discovered[e.u] && edges[e.gIndex].flow == edges[e.gIndex].capacity)
+                minCut.add(edges[e.gIndex]);
+            
+        for(Edge e : gPrime[v].leaving) {
+            if(!discovered[e.v])               
+                DFSMinCut(e.v, minCut, discovered);           
+        }
     }
     
     public static void parseInput() {
 	// parse n
 	in = new Scanner(System.in);
-    //try {
-    //    in = new Scanner(new FileReader("input.txt"));
-    //} catch (FileNotFoundException ex) {
-    //    java.util.logging.Logger.getLogger(NF.class.getName()).log(Level.SEVERE, null, ex);
-    //}
+    //    try {
+    //        in = new Scanner(new FileReader("input.txt"));
+    //    } catch (FileNotFoundException ex) {
+    //        java.util.logging.Logger.getLogger(NF.class.getName()).log(Level.SEVERE, null, ex);
+    //    }
         
 	String l = in.nextLine();
 	if(l == null) die("error parsing n");
