@@ -13,7 +13,9 @@ public class NF {
 	parseArgs(args);
         parseInput();
         //Gf kept as an adjacency list
-	List<List<Edge>>gPrime;  
+	List<List<Edge>>gPrime;
+
+	GraphPrinter.drawGraph(edges, nodes);
     }
     
     private static int augment() {
@@ -54,6 +56,7 @@ public class NF {
 	if(args.length > 0) {
 	    for(String s : args) {
 		if(s.equals("-v")) Logger.debug = true;
+		if(s.equals("-g")) GraphPrinter.doGenerate = true;
 	    }
 	}
     }
