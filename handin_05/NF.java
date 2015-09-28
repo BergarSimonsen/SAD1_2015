@@ -123,21 +123,24 @@ public class NF {
     
     private static List<Edge> getMinCut() {
         boolean discovered[] = new boolean[n]; 
-        List<Edge> minCut = new ArrayList<>();
-        DFSMinCut(0, minCut, discovered);        
+        DFSMinCut(0, discovered);        
         
+        List<Edge> minCut = new ArrayList<>();
+        for(int i = 0 ; i < n ; i++) {
+            if(discovered[i] == true) {
+                for(Edge e : gPrime[i].entering)
+                    if(!discovered[e.u] && edges[e.gIndex].flow == edges[e.gIndex].capacity)
+                        minCut.add(edges[e.gIndex]);
+            }
+        }
         return minCut;
     }
     
-    private static void DFSMinCut(int v, List<Edge> minCut, boolean[] discovered) {
-        discovered[v] = true;
-        for(Edge e : gPrime[v].entering)
-            if(!discovered[e.u] && edges[e.gIndex].flow == edges[e.gIndex].capacity)
-                minCut.add(edges[e.gIndex]);
-            
+    private static void DFSMinCut(int v, boolean[] discovered) {
+        discovered[v] = true;            
         for(Edge e : gPrime[v].leaving) {
             if(!discovered[e.v])               
-                DFSMinCut(e.v, minCut, discovered);           
+                DFSMinCut(e.v, discovered);           
         }
     }
     
