@@ -37,6 +37,6 @@ public class Edge {
 
     @Override
     public String toString() {
-	return String.format("%d -- %d (%d)", u, v, capacity);
+	return String.format("%d -- %d (%d) ((%d))", u, v, capacity, flow);
     }     
 }
