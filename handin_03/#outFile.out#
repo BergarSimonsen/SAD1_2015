@@ -1,0 +1,514 @@
+filename: a280-tsp.txt
+Dimension: 280, P.length: 280
+After creating Px & Py
+XX
+280 0.0
+filename: ali535-tsp.txt
+Dimension: 535, P.length: 535
+After creating Px & Py
+XX
+535 0.0
+filename: att48-tsp.txt
+Dimension: 48, P.length: 48
+After creating Px & Py
+XX
+48 131.46862743635836
+filename: att532-tsp.txt
+Dimension: 532, P.length: 532
+After creating Px & Py
+XX
+532 3.1622776601683795
+filename: berlin52-tsp.txt
+Dimension: 52, P.length: 52
+After creating Px & Py
+XX
+52 15.811388300841896
+filename: bier127-tsp.txt
+Dimension: 127, P.length: 127
+After creating Px & Py
+XX
+127 116.0
+filename: brd14051-tsp.txt
+Dimension: 14051, P.length: 14051
+After creating Px & Py
+XX
+14051 1.0
+filename: burma14-tsp.txt
+Dimension: 14, P.length: 14
+After creating Px & Py
+XX
+14 0.6648308055437824
+filename: ch130-tsp.txt
+Dimension: 130, P.length: 130
+After creating Px & Py
+XX
+130 5.698926877993101
+filename: ch150-tsp.txt
+Dimension: 150, P.length: 150
+After creating Px & Py
+XX
+150 1.649216924729638
+
+filename: close-pairs-1-in.txt
+ERROR Creating array
+filename: close-pairs-2-in.txt
+ERROR Creating array
+filename: close-pairs-3-in.txt
+ERROR Creating array
+filename: close-pairs-4-in.txt
+ERROR Creating array
+filename: close-pairs-5-in.txt
+ERROR Creating array
+filename: close-pairs-6-in.txt
+ERROR Creating array
+filename: closest-pair-out.txt
+Error parsing input. Exiting.
+
+filename: d1291-tsp.txt
+Dimension: 1291, P.length: 1291
+After creating Px & Py
+XX
+1291 25.0
+filename: d15112-tsp.txt
+Dimension: 15112, P.length: 15112
+After creating Px & Py
+XX
+15112 17.0
+filename: d1655-tsp.txt
+Dimension: 1655, P.length: 1655
+After creating Px & Py
+XX
+1655 25.399999999999636
+filename: d18512-tsp.txt
+Dimension: 18512, P.length: 18512
+After creating Px & Py
+XX
+18512 1.0
+filename: d198-tsp.txt
+Dimension: 198, P.length: 198
+After creating Px & Py
+XX
+198 25.399999999999864
+filename: d2103-tsp.txt
+Dimension: 2103, P.length: 2103
+After creating Px & Py
+XX
+2103 25.399999999999636
+filename: d493-tsp.txt
+Dimension: 493, P.length: 493
+After creating Px & Py
+XX
+493 17.96051224213837
+filename: d657-tsp.txt
+Dimension: 657, P.length: 657
+After creating Px & Py
+XX
+657 17.96051224213821
+filename: dsj1000-tsp.txt
+Dimension: 1000, P.length: 1000
+After creating Px & Py
+XX
+1000 876.3041709360969
+filename: eil101-tsp.txt
+Dimension: 101, P.length: 101
+After creating Px & Py
+XX
+101 2.0
+filename: eil51-tsp.txt
+Dimension: 51, P.length: 51
+After creating Px & Py
+XX
+51 2.23606797749979
+filename: eil76-tsp.txt
+Dimension: 76, P.length: 76
+After creating Px & Py
+XX
+76 2.23606797749979
+filename: fl1400-tsp.txt
+Dimension: 1400, P.length: 1400
+After creating Px & Py
+XX
+1400 4.1719300090003735
+filename: fl1577-tsp.txt
+Dimension: 1577, P.length: 1577
+After creating Px & Py
+XX
+1577 8.35093407949071
+filename: fl3795-tsp.txt
+Dimension: 3795, P.length: 3795
+After creating Px & Py
+XX
+3795 4.171930009000534
+filename: fl417-tsp.txt
+Dimension: 417, P.length: 417
+After creating Px & Py
+XX
+417 8.352345419102358
+filename: fnl4461-tsp.txt
+Dimension: 4461, P.length: 4461
+After creating Px & Py
+XX
+4461 10.0
+filename: gil262-tsp.txt
+Dimension: 262, P.length: 262
+After creating Px & Py
+XX
+262 1.0
+filename: gr137-tsp.txt
+Dimension: 137, P.length: 137
+After creating Px & Py
+XX
+137 1.2808200498118398
+filename: gr202-tsp.txt
+Dimension: 202, P.length: 202
+After creating Px & Py
+XX
+202 0.08000000000000007
+filename: gr229-tsp.txt
+Dimension: 229, P.length: 229
+After creating Px & Py
+XX
+229 0.3712142238654163
+filename: gr431-tsp.txt
+Dimension: 431, P.length: 431
+After creating Px & Py
+XX
+431 0.1200000000000001
+filename: gr666-tsp.txt
+Dimension: 666, P.length: 666
+After creating Px & Py
+XX
+666 0.02236067977499742
+filename: gr96-tsp.txt
+Dimension: 96, P.length: 96
+After creating Px & Py
+XX
+96 0.02236067977499742
+filename: kroA100-tsp.txt
+Dimension: 100, P.length: 100
+After creating Px & Py
+XX
+100 13.038404810405298
+filename: kroA150-tsp.txt
+Dimension: 150, P.length: 150
+After creating Px & Py
+XX
+150 23.0
+filename: kroA200-tsp.txt
+Dimension: 200, P.length: 200
+After creating Px & Py
+XX
+200 10.295630140987
+filename: kroB100-tsp.txt
+Dimension: 100, P.length: 100
+After creating Px & Py
+XX
+100 26.0
+filename: kroB150-tsp.txt
+Dimension: 150, P.length: 150
+After creating Px & Py
+XX
+150 8.06225774829855
+filename: kroB200-tsp.txt
+Dimension: 200, P.length: 200
+After creating Px & Py
+XX
+200 5.0
+filename: kroC100-tsp.txt
+Dimension: 100, P.length: 100
+After creating Px & Py
+XX
+100 32.31098884280702
+filename: kroD100-tsp.txt
+Dimension: 100, P.length: 100
+After creating Px & Py
+XX
+100 21.02379604162864
+filename: kroE100-tsp.txt
+Dimension: 100, P.length: 100
+After creating Px & Py
+XX
+100 40.311288741492746
+filename: lin105-tsp.txt
+Dimension: 105, P.length: 105
+After creating Px & Py
+XX
+105 31.0
+filename: lin318-tsp.txt
+Dimension: 318, P.length: 318
+After creating Px & Py
+XX
+318 31.0
+filename: linhp318-tsp.txt
+filename: nrw1379-tsp.txt
+Dimension: 1379, P.length: 1379
+After creating Px & Py
+XX
+1379 13.038404810405298
+filename: p654-tsp.txt
+Dimension: 654, P.length: 654
+After creating Px & Py
+XX
+654 15.0
+filename: pcb1173-tsp.txt
+Dimension: 1173, P.length: 1173
+After creating Px & Py
+XX
+1173 1.0
+filename: pcb3038-tsp.txt
+Dimension: 3038, P.length: 3038
+After creating Px & Py
+XX
+3038 1.0
+filename: pcb442-tsp.txt
+Dimension: 442, P.length: 442
+After creating Px & Py
+XX
+442 50.0
+filename: pla33810-tsp.txt
+Dimension: 33810, P.length: 33810
+After creating Px & Py
+XX
+33810 930.3897032964197
+filename: pla7397-tsp.txt
+Dimension: 7397, P.length: 7397
+After creating Px & Py
+XX
+7397 930.3897032964197
+filename: pla85900-tsp.txt
+Dimension: 85900, P.length: 85900
+After creating Px & Py
+XX
+85900 728.0109889280518
+filename: pr1002-tsp.txt
+Dimension: 1002, P.length: 1002
+After creating Px & Py
+XX
+1002 100.0
+filename: pr107-tsp.txt
+Dimension: 107, P.length: 107
+After creating Px & Py
+XX
+107 200.0
+filename: pr124-tsp.txt
+Dimension: 124, P.length: 124
+After creating Px & Py
+XX
+124 150.0
+filename: pr136-tsp.txt
+Dimension: 136, P.length: 136
+After creating Px & Py
+XX
+136 170.0
+filename: pr144-tsp.txt
+Dimension: 144, P.length: 144
+After creating Px & Py
+XX
+144 100.0
+filename: pr152-tsp.txt
+Dimension: 152, P.length: 152
+After creating Px & Py
+XX
+152 87.28115489611719
+filename: pr226-tsp.txt
+Dimension: 226, P.length: 226
+After creating Px & Py
+XX
+226 100.0
+filename: pr2392-tsp.txt
+Dimension: 2392, P.length: 2392
+After creating Px & Py
+XX
+2392 1.0
+filename: pr264-tsp.txt
+Dimension: 264, P.length: 264
+After creating Px & Py
+XX
+264 100.0
+filename: pr299-tsp.txt
+Dimension: 299, P.length: 299
+After creating Px & Py
+XX
+299 1.4142135623730951
+filename: pr439-tsp.txt
+Dimension: 439, P.length: 439
+After creating Px & Py
+XX
+439 90.13878188659973
+filename: pr76-tsp.txt
+Dimension: 76, P.length: 76
+After creating Px & Py
+XX
+76 300.0
+filename: rat195-tsp.txt
+Dimension: 195, P.length: 195
+After creating Px & Py
+XX
+195 7.0
+filename: rat575-tsp.txt
+Dimension: 575, P.length: 575
+After creating Px & Py
+XX
+575 2.0
+filename: rat783-tsp.txt
+Dimension: 783, P.length: 783
+After creating Px & Py
+XX
+783 1.0
+filename: rat99-tsp.txt
+Dimension: 99, P.length: 99
+After creating Px & Py
+XX
+99 5.0
+filename: rd100-tsp.txt
+Dimension: 100, P.length: 100
+After creating Px & Py
+XX
+100 8.202925392809593
+filename: rd400-tsp.txt
+Dimension: 400, P.length: 400
+After creating Px & Py
+XX
+400 5.310273533444393
+filename: rl11849-tsp.txt
+Dimension: 11849, P.length: 11849
+After creating Px & Py
+XX
+11849 16.977926846349646
+filename: rl1304-tsp.txt
+Dimension: 1304, P.length: 1304
+After creating Px & Py
+XX
+1304 32.0
+filename: rl1323-tsp.txt
+Dimension: 1323, P.length: 1323
+After creating Px & Py
+XX
+1323 64.0
+filename: rl1889-tsp.txt
+Dimension: 1889, P.length: 1889
+After creating Px & Py
+XX
+1889 32.0
+filename: rl5915-tsp.txt
+Dimension: 5915, P.length: 5915
+After creating Px & Py
+XX
+5915 32.0
+filename: rl5934-tsp.txt
+Dimension: 5934, P.length: 5934
+After creating Px & Py
+XX
+5934 27.0
+filename: run.sh
+Error parsing input. Exiting.
+filename: run.sh~
+Error parsing input. Exiting.
+filename: st70-tsp.txt
+Dimension: 70, P.length: 70
+After creating Px & Py
+XX
+70 1.0
+filename: sw24978-tsp.txt
+Dimension: 24978, P.length: 24978
+After creating Px & Py
+XX
+24978 0.2776999999987311
+filename: ts225-tsp.txt
+Dimension: 225, P.length: 225
+After creating Px & Py
+XX
+225 500.0
+filename: tsp225-tsp.txt
+Dimension: 225, P.length: 225
+After creating Px & Py
+XX
+225 6.5
+filename: u1060-tsp.txt
+Dimension: 1060, P.length: 1060
+After creating Px & Py
+XX
+1060 70.68946809815402
+filename: u1432-tsp.txt
+Dimension: 1432, P.length: 1432
+After creating Px & Py
+XX
+1432 100.0
+filename: u159-tsp.txt
+Dimension: 159, P.length: 159
+After creating Px & Py
+XX
+159 100.0
+filename: u1817-tsp.txt
+Dimension: 1817, P.length: 1817
+After creating Px & Py
+XX
+1817 25.389999999999873
+filename: u2152-tsp.txt
+Dimension: 2152, P.length: 2152
+After creating Px & Py
+XX
+2152 25.389999999999873
+filename: u2319-tsp.txt
+Dimension: 2319, P.length: 2319
+After creating Px & Py
+XX
+2319 100.0
+filename: u574-tsp.txt
+Dimension: 574, P.length: 574
+After creating Px & Py
+XX
+574 2.941598205057742
+filename: u724-tsp.txt
+Dimension: 724, P.length: 724
+After creating Px & Py
+XX
+724 3.3199999999999363
+filename: ulysses16-tsp.txt
+Dimension: 16, P.length: 16
+After creating Px & Py
+XX
+16 0.3883297567789516
+filename: ulysses22-tsp.txt
+Dimension: 22, P.length: 22
+After creating Px & Py
+XX
+22 0.08944271909999127
+filename: usa13509-tsp.txt
+Dimension: 13509, P.length: 13509
+After creating Px & Py
+XX
+13509 6.211796841552726
+filename: vm1084-tsp.txt
+Dimension: 1084, P.length: 1084
+After creating Px & Py
+XX
+1084 32.0
+filename: vm1748-tsp.txt
+Dimension: 1748, P.length: 1748
+After creating Px & Py
+XX
+1748 22.0
+
+filename: wc-instance-1022.txt
+ERROR Creating array
+filename: wc-instance-126.txt
+ERROR Creating array
+filename: wc-instance-14.txt
+ERROR Creating array
+filename: wc-instance-16382.txt
+ERROR Creating array
+filename: wc-instance-254.txt
+ERROR Creating array
+filename: wc-instance-2.txt
+ERROR Creating array
+filename: wc-instance-30.txt
+ERROR Creating array
+filename: wc-instance-4094.txt
+ERROR Creating array
+filename: wc-instance-62.txt
+ERROR Creating array
+filename: wc-instance-65534.txt
+ERROR Creating array
+filename: wc-instance-6.txt
+ERROR Creating array
