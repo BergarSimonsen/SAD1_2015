@@ -172,6 +172,23 @@ public class NF {
 		int u = Integer.parseInt(tmp[0]);
 		int v = Integer.parseInt(tmp[1]);
 		int c = Integer.parseInt(tmp[2]);
+
+		/*
+		 * This section allows us to change the capacity of the edges 4W -> 48
+		 * and 4W -> 49.
+		 * For testing, remove the comments and change the values of 'c' according
+		 * to the assignment.
+		 */
+
+		/*
+		if(u == 20 && v == 21)  // 4W -> 48
+		    c = 20;
+
+
+		if(u == 20 && v == 23)  // 4W -> 49
+		    c = 30;
+		*/
+
 		edges[i] = new Edge(u, v, c);
 		edges[i+1] = new Edge(v, u, c);
 	    }
