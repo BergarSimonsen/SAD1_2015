@@ -14,3 +14,12 @@ hs_err_pid*
 # input and output test files
 *.in
 *.out
+*.txt
+*.txt~
+
+# Script files
+*.sh
+*.sh~
+
+# Emacs backup files
+*~
