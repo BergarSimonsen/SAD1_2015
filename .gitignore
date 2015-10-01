@@ -23,3 +23,10 @@ hs_err_pid*
 
 # Emacs backup files
 *~
+
+# pdf files
+*.pdf
+
+# Graph files
+*.png
+*.dot

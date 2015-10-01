@@ -1,0 +1,7 @@
+digraph G {
+"s" -> "u" [label=20]
+"s" -> "v" [label=10]
+"u" -> "v" [label=30]
+"u" -> "t" [label=10]
+"v" -> "t" [label=20]
+}
